@@ -212,7 +212,7 @@ def loader(config_dict, engine):
 
 def logmsg(level, msg):
 #    syslog.syslog(level, 'HP1000: %s' % (msg))
-    logging.log(level, 'HP100: %s', msg);
+    logging.log(level, 'HP1000: %s', msg);
 
 
 def logdbg(msg):
