@@ -1,7 +1,7 @@
 # HP1000 - a driver for HP1000 and clones including WS1001 and XC0422
 Copyright 2017-2020 Susan Mackay
 
-# Introduction
+## Introduction
 The HP1000 driver communicates directly with the weather station console via 
 WiFi.
 
@@ -18,14 +18,14 @@ The normal generation of  html files will be delayed while weeWx performs the
 catch up process, but it means that the data will include the period while weeWx 
 was not working but the weather station was still logging data.
 
-## Parameter Units
+### Parameter Units
 The HP1000 weather consoles can display wind, rain and similar properties
 using a selection of units (set in the console's "Setup" panel). For example, 
 wind speed' can be in m/s, km/h, knots, mph and even Beaufort scale numbers. The 
 driver will determine the currently selected units when it connects with the 
 console
 
-## Network
+### Network
 The HP1000 (and similar 'clone' devices such as the WS1001 and XC0422 weather 
 stations) communicates via WiFi to the local network to pass data to Weather 
 Underground (or whatever other weather upload service is used). As such the 
@@ -40,20 +40,20 @@ all communication will be direct between the driver and the weather station.
 If communication is lost with the weather station, the above process is repeated
 until it is reestablished.
 
-## Log Messages
+### Log Messages
 The driver will output messages to the system log as it tries to establish 
 connection to the weather station console and if communication is lost. No 
 messages are sent by the driver during  normal operation. All messages have the 
 text 'HP1000' in them which allows easy searching of the log file.
 
-## Limitations
-### Unit Selection
+### Limitations
+#### Unit Selection
 The driver only requests the parameter units form the console when a connection
 is established. Therefore, if you change the unit for a parameter, the weeWx
 program must be restarted. Otherwise the information form the console will be
 misinterpreted.
 
-### Network
+#### Network
 In order to find the weather console, the driver issues UDP 'broadcast' 
 messages. While it is possible for routers to pass these packets between
 subnets, the need to be suitably configured (which is beyond the scope of these
@@ -89,18 +89,18 @@ means that there will be a minimum of 15 seconds between requests for data from
 the weather station. This parameter can be adjusted up or down as desired with 
 a value of 0 meaning that packets will be requested as frequently as possible.
 
-## Testing
+### Testing
 The driver can be run stand-alone and without connection to a weather station 
 console by following the instructions for runing a stand-alone driver in the 
 weeW3x documentation.
 
-# Pre-requisites
+## Pre-requisites
 
 The HP1000 driver has been tested using weeWx V4.1.1 and uses Python 3. It might work on earlier 
 versions but this has not been tested and is not guaranteed.
 Similarly, it might work with later versions but this has not been tested.
 
-## Active Network Required
+### Active Network Required
 An active network is required before the HP1000 driver can access the weather 
 station console. This can be an issue when weeWx is run as a daemon which means 
 that it will be started as the computer system boots.
@@ -109,7 +109,7 @@ weeWx can be set up to handle this situation is one of two ways.
 
 **Note** Editing the weewx.conf file is the recommended option
 
-### Edit the weewx.conf file
+#### Edit the weewx.conf file
 weeWx has a built-in mechanism to handle network failures. In the weewx.conf file add in the line
 
     loop_on_init = True
@@ -125,16 +125,16 @@ access is maintained.
 This process will also be used if the network access is lost at any time after
 weeWx is operating normally.
 
-### Edit the Daemon startup file
+#### Edit the Daemon startup file
 With this option, you tell the daemon to delay starting until an active network 
 is available. The file you need to edit depends on whether you are using SysV or 
 systemctl to control the computer. This can be done by editing/adding the appropriate file as outlined below.
 
-#### SysV
+##### SysV
     Required-Start: $local_fs ... _$network_ ...
     Required-Stop: $local_fs ... _$network_ ...
 
-#### systemctl
+##### systemctl
     Requires=network-online.target
     After=network-online.target
     Restart=always
@@ -147,8 +147,8 @@ The last two lines ensure that any crash of weeWx will cause the program to be
 restarted after a 60 second pause. This applies to errors other than the network 
 access one discussed here.
 
-# Installation instructions
-Please consider the information in the 're-requisites' section.
+## Installation instructions
+Please consider the information in the 'Pre-requisites' section.
 
 1) run the installer:
 ```
