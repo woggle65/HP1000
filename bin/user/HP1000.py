@@ -322,7 +322,7 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                 retry_counter = self.retry_count
                 sender_addr = None
                 while True:
-                    #                        loginf('Sending broadcast request')
+                    loginf('Sending broadcast request')
                     try:
                         sock.sendto(bcData,
                                     (self.ip_address_mask, UDP_BROADCAST_PORT))
@@ -338,11 +338,11 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                     try:
                         # Receive the response form the weather station
                         data, sender_addr = sock.recvfrom(512)
-#                            loginf( 'Received ack from {0}'.format(sender_addr))
+                        loginf( 'Received ack from {0}'.format(sender_addr))
                         break
                     except socket.timeout:
                         retry_counter -= 1
-                        #                            loginf('Timeout')
+                        loginf('Timeout')
                         if retry_counter == 0:
                             sender_addr = None
                             loginf('Timed out too many times')
@@ -371,9 +371,9 @@ class HP1000Driver(weewx.drivers.AbstractDevice):
                 self.ws_MAC_address = data[40:64].decode().rstrip('\0')
                 self.ws_IP_address = data[64:80].decode().rstrip('\0')
 
-#                    loginf( 'WS Name = %s' % self.ws_name)
-#                    loginf( 'MAC Address = %s' % self.ws_MAC_address)
-#                    loginf( 'IP Address = %s' % self.ws_IP_address)
+                loginf( 'WS Name = %s' % self.ws_name)
+                loginf( 'MAC Address = %s' % self.ws_MAC_address)
+                loginf( 'IP Address = %s' % self.ws_IP_address)
 
                 # Connect to the weather station
                 self.ws_socket = None
