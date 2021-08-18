@@ -9,7 +9,7 @@ def loader():
 class ProcessHP1000Installer(ExtensionInstaller):
     def __init__(self):
         super(ProcessHP1000Installer, self).__init__(
-            version="1.3",
+            version="1.4",
             name='HP1000',
             description='Driver for the HP1000, WS1001 and XC0422 weather stations.',
             author="Susan Mackay",
